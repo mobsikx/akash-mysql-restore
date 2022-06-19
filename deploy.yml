@@ -1,0 +1,61 @@
+---
+version: "2.0"
+
+services:
+  cron:
+    image: akash-mysql-restore:0.0.1
+    env:
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=akash_postgres
+      - BACKUP_PATH=mybucket/backups
+      - BACKUP_KEY=KEY
+      - BACKUP_SECRET=SECRET
+      - BACKUP_PASSPHRASE=passphrase
+    depends_on:
+      - service: postgres
+  db:
+    image: mysql:latest
+    env:
+      - MYSQL_PASSWORD=password
+    expose:
+      - port: 3306
+        to:
+          - service: cron
+
+profiles:
+  compute:
+    cron:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          size: 1Gi
+    postgres:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          size: 1Gi
+  placement:
+    dcloud:
+      pricing:
+        cron:
+          denom: uakt
+          amount: 10000
+        postgres:
+          denom: uakt
+          amount: 10000
+
+deployment:
+  cron:
+    dcloud:
+      profile: cron
+      count: 1
+  postgres:
+    dcloud:
+      profile: postgres
+      count: 1
