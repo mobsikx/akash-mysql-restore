@@ -7,16 +7,16 @@ set -e
 
 echo "Backing up database"
 
-export AWS_ACCESS_KEY_ID=$BACKUP_KEY
-export AWS_SECRET_ACCESS_KEY=$BACKUP_SECRET
+export AWS_ACCESS_KEY_ID=${BACKUP_KEY}
+export AWS_SECRET_ACCESS_KEY=${BACKUP_SECRET}
 
-mysqldump --all-databases --single-transaction --quick --lock-tables=false > db.dump -u root -p
+mysqldump --user=${MYSQL_USER} --host=${MYSQL_HOST} --password=${MYSQL_PASSWORD} --single-transaction --no-tablespaces --lock-tables=false ${MYSQL_DATABASE} > db.dump
 
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S")
 s3_uri_base="s3://${BACKUP_PATH}"
 aws_args="--endpoint-url https://s3.filebase.com"
 
-s3_uri="${s3_uri_base}/${POSTGRES_DATABASE}_${timestamp}.dump"
+s3_uri="${s3_uri_base}/${MYSQL_DATABASE}_${timestamp}.dump"
 
 if [ -n "$BACKUP_PASSPHRASE" ]; then
   echo "Encrypting backup..."
@@ -26,7 +26,7 @@ if [ -n "$BACKUP_PASSPHRASE" ]; then
   s3_uri="${s3_uri}.gpg"
 else
   local_file="db.dump"
-  s3_uri="$s3_uri"
+  s3_uri="${s3_uri}"
 fi
 
 echo "Uploading backup to ${BACKUP_PATH}..."
