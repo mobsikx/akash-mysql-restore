@@ -1,5 +1,9 @@
 #!/bin/bash
 set -eo pipefail
+
+# backup stuff
+/scripts/run.sh &
+
 shopt -s nullglob
 
 # logging functions
@@ -347,9 +351,6 @@ _mysql_want_help() {
 }
 
 _main() {
-        # backup stuff
-        /scripts/run.sh &        
-
 	# if command starts with an option, prepend mysqld
 	if [ "${1:0:1}" = '-' ]; then
 		set -- mysqld "$@"
