@@ -14,6 +14,7 @@ mysqldump --user=${MYSQL_USER} \
           --host=${MYSQL_HOST} \
           --password=${MYSQL_PASSWORD} \
           --single-transaction \
+          --databases ${MYSQL_DATABASE} \
           # --no-tablespaces \
           --lock-tables=false ${MYSQL_DATABASE} > db.dump
 
