@@ -3,7 +3,7 @@ version: "2.0"
 
 services:
   cron:
-    image: mobsikx/akash-mysql-restore:0.0.10
+    image: mobsikx/akash-mysql-restore:0.0.11
     env:
       - MYSQL_DATABASE=exampledb
       - MYSQL_USER=user
