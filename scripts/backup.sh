@@ -13,9 +13,12 @@ export AWS_SECRET_ACCESS_KEY=${BACKUP_SECRET}
 mysqldump --user=${MYSQL_USER} \
           --host=${MYSQL_HOST} \
           --password=${MYSQL_PASSWORD} \
+          --default-character-set=utf8 \
+          --protocol=tcp \
           --single-transaction \
-          --databases ${MYSQL_DATABASE} \
-          > db.dump
+          --column-statistics=0 \
+          --no-tablespaces \
+          ${MYSQL_DATABASE} > db.dump
 
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S")
 s3_uri_base="s3://${BACKUP_PATH}"
