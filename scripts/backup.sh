@@ -10,7 +10,12 @@ echo "Backing up database"
 export AWS_ACCESS_KEY_ID=${BACKUP_KEY}
 export AWS_SECRET_ACCESS_KEY=${BACKUP_SECRET}
 
-mysqldump --user=${MYSQL_USER} --host=${MYSQL_HOST} --password=${MYSQL_PASSWORD} --single-transaction --no-tablespaces --lock-tables=false ${MYSQL_DATABASE} > db.dump
+mysqldump --user=${MYSQL_USER} \
+          --host=${MYSQL_HOST} \
+          --password=${MYSQL_PASSWORD} \
+          --single-transaction \
+          # --no-tablespaces \
+          --lock-tables=false ${MYSQL_DATABASE} > db.dump
 
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S")
 s3_uri_base="s3://${BACKUP_PATH}"
