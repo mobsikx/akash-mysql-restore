@@ -9,6 +9,7 @@ RUN ./aws/install --bin-dir /usr/bin
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*.sh
 
+ENV CMS_HOST=cms
 ENV MYSQL_DATABASE=exampledb
 ENV MYSQL_PORT=3306
 ENV MYSQL_USER=exampleuser

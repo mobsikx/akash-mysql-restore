@@ -46,6 +46,15 @@ else
 
   conn_opts=""
 
+  echo "Modifying WP links to current host..."
+  ingress_uri_new=$(curl -Isf http://${CMS_HOST} | grep -oE 'Link:.*' | cut -f 2 -d '<' | cut -f 3 -d '<' | cut -f 3 -d '/')
+  ingress_uri_old=$(grep --color -Eo "'siteurl','http://[a-zA-Z0-9./?=_%:-]*" db.dump | cut -f 4 -d "'" | cut -f 3 -d '/')
+
+  if [ "${ingress_uri_new}" != "${ingress_uri_old}" ]
+  then
+    sed -i -re 's/'${ingress_uri_old}'/'${ingress_uri_new}'/g' db.dump
+  fi
+
   echo "Restoring from backup..."
   mysql --user=${MYSQL_USER} \
         --host=${MYSQL_HOST} \

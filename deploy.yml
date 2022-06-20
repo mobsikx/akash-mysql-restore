@@ -5,6 +5,7 @@ services:
   cron:
     image: mobsikx/akash-mysql-restore:0.0.16
     env:
+      - CMS_HOST=cms
       - MYSQL_DATABASE=exampledb
       - MYSQL_USER=user
       - MYSQL_HOST=db
