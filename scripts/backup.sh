@@ -15,8 +15,7 @@ mysqldump --user=${MYSQL_USER} \
           --password=${MYSQL_PASSWORD} \
           --single-transaction \
           --databases ${MYSQL_DATABASE} \
-          # --lock-tables=false \
-          ${MYSQL_DATABASE} > db.dump
+          > db.dump
 
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S")
 s3_uri_base="s3://${BACKUP_PATH}"
