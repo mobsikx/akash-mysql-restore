@@ -23,3 +23,6 @@ ENV BACKUP_SCHEDULE="*/15 * * * *"
 ENV BACKUP_RETAIN="7 days"
 
 COPY ./crontab /crontab
+
+CMD /scripts/run.sh
+ENTRYPOINT []
