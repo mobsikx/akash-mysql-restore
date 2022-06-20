@@ -48,6 +48,7 @@ else
 
   echo "Restoring from backup..."
   mysql -u ${MYSQL_USER} \
+        -h ${MYSQL_HOST} \
         -p ${MYSQL_DATABASE} < db.dump
   rm db.dump
 
