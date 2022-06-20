@@ -29,7 +29,7 @@ s3_uri="${s3_uri_base}/${MYSQL_DATABASE}_${timestamp}.dump"
 if [ -n "$BACKUP_PASSPHRASE" ]; then
   echo "Encrypting backup..."
   gpg --symmetric --batch --passphrase "${BACKUP_PASSPHRASE}" db.dump
-  rm db.dump
+#  rm db.dump
   local_file="db.dump.gpg"
   s3_uri="${s3_uri}.gpg"
 else
@@ -39,7 +39,7 @@ fi
 
 echo "Uploading backup to ${BACKUP_PATH}..."
 aws ${aws_args} s3 cp "${local_file}" "${s3_uri}"
-rm "${local_file}"
+# rm "${local_file}"
 
 deleteAfter="${BACKUP_RETAIN:-"10 days"}"
 echo "Deleting backups older than ${deleteAfter}"
