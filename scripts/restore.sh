@@ -47,9 +47,10 @@ else
   conn_opts=""
 
   echo "Restoring from backup..."
-  mysql -u ${MYSQL_USER} \
-        -h ${MYSQL_HOST} \
-        -p ${MYSQL_DATABASE} < db.dump
+  mysql --user=${MYSQL_USER} \
+        --host=${MYSQL_HOST} \
+        --password=${MYSQL_PASSWORD} \
+        ${MYSQL_DATABASE} < db.dump
   rm db.dump
 
   echo "Restore complete."
