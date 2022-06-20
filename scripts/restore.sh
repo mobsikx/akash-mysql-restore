@@ -44,10 +44,8 @@ else
     rm db.dump.gpg
   fi
 
-  conn_opts=""
-
   echo "Modifying WP links to current host..."
-  ingress_uri_new=$(curl -LIsf http://${CMS_HOST} | grep -oE 'Link:.*' | cut -f 2 -d '<' | cut -f 3 -d '<' | cut -f 3 -d '/')
+  ingress_uri_new=${CMS_DNS_A} # $(curl -LIsf http://${CMS_HOST} | grep -oE 'Link:.*' | cut -f 2 -d '<' | cut -f 3 -d '<' | cut -f 3 -d '/')
   ingress_uri_old=$(grep --color -Eo "'siteurl','http://[a-zA-Z0-9./?=_%:-]*" db.dump | cut -f 4 -d "'" | cut -f 3 -d '/')
 
   echo "DEBUG: ingress_uri_new = \"${ingress_uri_new}\""

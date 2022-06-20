@@ -6,6 +6,7 @@ services:
     image: mobsikx/akash-mysql-restore:0.0.17
     env:
       - CMS_HOST=cms
+      - CMS_DNS_A=hkfdsh.fans
       - MYSQL_DATABASE=exampledb
       - MYSQL_USER=user
       - MYSQL_HOST=db
