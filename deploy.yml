@@ -3,23 +3,30 @@ version: "2.0"
 
 services:
   cron:
-    image: akash-mysql-restore:0.0.1
+    image: mobsikx/akash-mysql-restore:0.0.10
     env:
+      - MYSQL_DATABASE=exampledb
+      - MYSQL_USER=user
+      - MYSQL_HOST=db
       - MYSQL_PASSWORD=password
-      - MYSQL_DATABASE=akash_postgres
-      - BACKUP_PATH=mybucket/backups
-      - BACKUP_KEY=KEY
-      - BACKUP_SECRET=SECRET
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - BACKUP_PATH=<<PATH>>
+      - BACKUP_KEY=<<KEY>>
+      - BACKUP_SECRET=<<SECRET>>
       - BACKUP_PASSPHRASE=passphrase
     depends_on:
-      - service: postgres
+      - service: db
   db:
     image: mysql:latest
     env:
+      - MYSQL_DATABASE=exampledb
+      - MYSQL_USER=user
       - MYSQL_PASSWORD=password
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
     expose:
       - port: 3306
         to:
+          - global: true
           - service: cron
 
 profiles:
@@ -32,7 +39,7 @@ profiles:
           size: 1Gi
         storage:
           size: 1Gi
-    postgres:
+    db:
       resources:
         cpu:
           units: 0.5
@@ -46,7 +53,7 @@ profiles:
         cron:
           denom: uakt
           amount: 10000
-        postgres:
+        db:
           denom: uakt
           amount: 10000
 
@@ -55,7 +62,7 @@ deployment:
     dcloud:
       profile: cron
       count: 1
-  postgres:
+  db:
     dcloud:
-      profile: postgres
+      profile: db
       count: 1
