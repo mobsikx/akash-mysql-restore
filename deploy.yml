@@ -3,7 +3,7 @@ version: "2.0"
 
 services:
   cron:
-    image: mobsikx/akash-mysql-restore:0.0.16
+    image: mobsikx/akash-mysql-restore:0.0.17
     env:
       - CMS_HOST=cms
       - MYSQL_DATABASE=exampledb
