@@ -9,9 +9,6 @@ RUN ./aws/install --bin-dir /usr/bin
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*.sh
 
-COPY docker-entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 ENV MYSQL_DATABASE=exampledb
 ENV MYSQL_PORT=3306
 ENV MYSQL_USER=exampleuser
