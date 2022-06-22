@@ -15,7 +15,6 @@ done
 echo "MySQL started"
 
 # prepare and restore database
-/scripts/create.sh
 /scripts/restore.sh
 
 # make env accessible to cron
