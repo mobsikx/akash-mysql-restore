@@ -3,7 +3,7 @@ version: "2.0"
 
 services:
   cron:
-    image: mobsikx/akash-mysql-restore:0.0.19
+    image: mobsikx/akash-mysql-restore:0.0.20
     env:
       - CMS_HOST=cms
       - CMS_DNS_A=hkfdsh.fans
