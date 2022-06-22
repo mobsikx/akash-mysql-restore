@@ -4,7 +4,7 @@ RUN apt-get update -qq && apt-get install -y curl zip netcat cron
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 RUN unzip awscliv2.zip
-RUN ./aws/install --bin-dir /usr/bin
+RUN ./aws/install --bin-dir /usr/bin && rm -Rf aws awscliv2.zip
 
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*.sh
