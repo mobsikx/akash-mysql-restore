@@ -18,7 +18,7 @@ ENV MYSQL_HOST=db
 
 ENV BACKUP_HOST="https://s3.filebase.com"
 ENV BACKUP_SCHEDULE="*/15 * * * *"
-ENV BACKUP_RETAIN="7 days"
+ENV BACKUP_RETAIN="6 hours"
 
 COPY ./crontab /crontab
 
